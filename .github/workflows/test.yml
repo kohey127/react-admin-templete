@@ -1,0 +1,21 @@
+name: test
+
+on: 'push'
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: pnpm/action-setup@v2
+              with:
+                  version: 8
+            - name: Install Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: '18.x'
+                  cache: 'pnpm'
+            - run: pnpm install
+            - run: pnpm type
+            - run: pnpm lint
+            - run: pnpm test
